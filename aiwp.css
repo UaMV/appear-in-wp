@@ -1,0 +1,67 @@
+#appearin-room {
+	width: 100%;
+	height: 0px;
+	margin-bottom: 0;
+}
+
+#aiwp-room-type-selection {
+	text-align: center;
+	font-weight: bold;
+	font-size: 125%;
+}
+
+	#aiwp-room-type-selection div {
+		vertical-align: top;
+		display: inline-block;
+		width: 50%;
+	}
+
+	#aiwp-room-type-selection div div {
+		vertical-align: top;
+		display: inline-block;
+		width: 100%;
+	}
+
+	#aiwp-room-type-selection div button,
+	#aiwp-room-type-selection div div button {
+		color: white;
+		width: 100%;
+		padding: 1.5em;
+		display: block;
+		margin: 0;
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+		text-shadow: none;
+	}
+
+	#aiwp-room-type-selection div button:hover {
+		border-radius: none;
+		box-shadow: none;
+		text-shadow: none;
+	}
+
+	.aiwp-invite-buttons {
+		text-align: center;
+		font-weight: bold;
+	}
+
+	.aiwp-invite-buttons a {
+		display: inline-block;
+		width: 33%;
+		text-decoration: none;
+		font-size: 100%;
+	}
+
+	#aiwp-room-type-selection a {
+		font-size: 75%;
+	}
+
+	#appearin-room-labels {
+		text-align: center;
+		font-size: 75%;
+	}
+		#appearin-room-label-external a {
+			display: block;
+			text-decoration: none;
+		}
