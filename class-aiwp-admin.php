@@ -297,7 +297,7 @@ class Appear_In_WP_Admin {
 	public function display_section() {
 
 		// get the aiwp side notices setting height of 500px
-		$notices = new WP_Side_Notice( 'aiwp', 700 );
+		$notices = new WP_Side_Notice( 'aiwp', 150 );
 
 		// display the notices
 		$notices->display();
