@@ -20,7 +20,7 @@ jQuery(document).ready(function( $ ) {
         	$('#aiwp-room-type-selection').hide();
 
         	// launch room
-        	launchAppearInRoom( aiRoom );
+        	launchAppearInRoom( aiRoom, 'invite' );
 
         } // end if
 	} else {
@@ -43,7 +43,7 @@ jQuery(document).ready(function( $ ) {
 	        	$('#aiwp-room-type-selection').hide();
 
 	        	// launch room
-	        	launchAppearInRoom( aiRoom );
+	        	launchAppearInRoom( aiRoom, 'invite' );
 
 	        } // end if
 	    });
@@ -91,7 +91,7 @@ jQuery(document).ready(function( $ ) {
 
 	});
 
-	function launchAppearInRoom( randomString ) {
+	function launchAppearInRoom( randomString, origin ) {
 		if ( randomString.indexOf('appear.in') >= 0 ) {
 			var roomName = randomString.replace('?lite','');
 		} else {
@@ -102,6 +102,8 @@ jQuery(document).ready(function( $ ) {
 			var roomURL = window.location.host + window.location.pathname;
 		} else if ( '' != window.location.search ) {
 			var roomURL = window.location.host + window.location.search;
+			var n = roomURL.indexOf('?room=');
+			roomURL = roomURL.substring(0, n != -1 ? n : roomURL.length);
 		} else {
 			var roomURL = window.location.host
 		}
