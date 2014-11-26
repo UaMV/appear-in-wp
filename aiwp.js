@@ -4,7 +4,7 @@
 jQuery(document).ready(function( $ ) {
 
 	if ( 'https:' === location.protocol ) {
-		// check if roomname is define in URI
+		// check if roomname is defined in URI
 		var aiRoom = lookToURI( 'room' );
 
 		$('#webrtc-compatability-tester').hide();
@@ -92,7 +92,13 @@ jQuery(document).ready(function( $ ) {
 			var roomName = 'appear.in/' + randomString;
 		}
 		var roomNameLite = roomName + '?lite';
-		var roomURL = window.location.host + window.location.pathname;
+		if ( '/' != window.location.pathname ) {
+			var roomURL = window.location.host + window.location.pathname;
+		} else if ( '' != window.location.search ) {
+			var roomURL = window.location.host + window.location.search;
+		} else {
+			var roomURL = window.location.host
+		}
 		// set the iframe source to load the room
 		var iframe = document.getElementById('appearin-room');
 		iframe.setAttribute('src', window.location.protocol + "//" + roomNameLite);
