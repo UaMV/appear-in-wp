@@ -3,6 +3,12 @@
  */
 jQuery(document).ready(function( $ ) {
 
+	if ( '' != lookToURI( 'room' ) ) {
+		$( window ).on( 'load', function() {
+			window.location.hash = 'appearin-room';
+		});
+	}
+
 	if ( 'https:' === location.protocol ) {
 		// check if roomname is defined in URI
 		var aiRoom = lookToURI( 'room' );
