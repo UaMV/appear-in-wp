@@ -80,18 +80,18 @@ jQuery(document).ready(function( $ ) {
 
 		if ( 'post' == roomType ) {
 			var roomURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-			launchAppearInRoom( roomURL, 'post' );
+			launchAppearInRoom( roomURL );
 		} else if ( 'public' == roomType ) {
 			var roomName = $('#appearin-room').attr('data-room-name');
-			launchAppearInRoom( roomName, 'public' );
+			launchAppearInRoom( roomName );
 		} else if ( 'private' == roomType ) {
 			var randomString = 'private-' + randomStringGenerator();
-			launchAppearInRoom( randomString, 'private' );
+			launchAppearInRoom( randomString );
 		}
 
 	});
 
-	function launchAppearInRoom( randomString, roomType ) {
+	function launchAppearInRoom( randomString ) {
 		if ( randomString.indexOf('appear.in') >= 0 ) {
 			var roomName = randomString.replace('?lite','');
 		} else {
