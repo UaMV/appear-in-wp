@@ -197,7 +197,8 @@ class Appear_In_WP {
 		}
 
 		// build room selection wrapper
-		// Add styling for iconset
+		// add styling for iconset
+		$text_color = $this->is_color_light( $this->options['color'] ) ? 'black' : 'white';
 		$html = '<style type="text/css">
 					#aiwp-room-type-selection div button,
 					#aiwp-room-type-selection div div button {
@@ -205,6 +206,10 @@ class Appear_In_WP {
 					}			
 					#aiwp-room-type-selection div button:hover {
 						background: ' . $this->hex_color_mod( $this->options['color'], -16 ) . ';
+					}
+					#aiwp-room-type-selection div button,
+					#aiwp-room-type-selection div div button {
+						color: ' . $text_color . ';
 					}
 				</style>';
 
@@ -280,6 +285,26 @@ class Appear_In_WP {
 	 
 		return '#'.implode($rgb);
 	}
+
+	/**
+     * Returns whether or not given color is considered "light"
+     * @param string|Boolean $color
+     * @return boolean
+     * @link https://github.com/mexitek/phpColors
+     */
+    public function is_color_light( $color = FALSE ) {
+
+        // Get our color
+        $color = ($color) ? $color : $this->_hex;
+        
+        // Calculate straight from rbg
+        $r = hexdec($color[0].$color[1]);
+        $g = hexdec($color[2].$color[3]);
+        $b = hexdec($color[4].$color[5]);
+        
+        return (( $r*299 + $g*587 + $b*114 )/1000 > 130);
+        
+    }
 
 } // end class
 
