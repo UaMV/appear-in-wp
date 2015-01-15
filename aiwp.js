@@ -114,9 +114,9 @@ jQuery(document).ready(function( $ ) {
 		var container = $('#aiwp-container');
 		container.addClass('aiwp-room-threshold');
 		if ( 'bottom' == container.data('position') ) {
-			$('#page').append(container);
+			$('body').append(container);
 		}
-		$('#page').append($('#aiwp-maximize'));
+		$('body').append($('#aiwp-maximize'));
 
 		$('#aiwp-room-type-selection').hide();
 		$('#appearin-room').css('height',container.data('room-height'));
@@ -133,7 +133,7 @@ jQuery(document).ready(function( $ ) {
 		container.css('height',container.data('room-height'));
 
 		if ( 'bottom' == container.data('position') ) {
-			$('#page').css('margin-bottom',container.data('room-height'));
+			$('body').css('margin-bottom',container.data('room-height'));
 		}
 
 		window.onbeforeunload = function(){
@@ -152,13 +152,13 @@ jQuery(document).ready(function( $ ) {
 
 	$('#aiwp-minimize').click( function() {
 		$('#aiwp-container').slideUp();
-		$('#page').css('margin-bottom',0);
+		$('body').css('margin-bottom',0);
 		$('#aiwp-maximize').delay(400).show(200);
 	});
 
 	$('#aiwp-maximize').click( function() {
 		$('#aiwp-container').slideDown();
-		$('#page').css('margin-bottom',$('#aiwp-container').data('room-height'));
+		$('body').css('margin-bottom',$('#aiwp-container').data('room-height'));
 		$('#aiwp-maximize').hide();
 	})
 
