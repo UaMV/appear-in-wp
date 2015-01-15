@@ -22,10 +22,14 @@
 		width: 100%;
 	}
 
-	#aiwp-room-type-selection div button,
-	#aiwp-room-type-selection div div button {
+	#aiwp-container iframe {
+		border: 0;
+	}
+
+	#aiwp-container button {
 		width: 100%;
-		padding: 1.5em;
+		min-height: 33px;
+		padding: .75em;
 		display: block;
 		margin: 0;
 		border: 0;
@@ -34,7 +38,7 @@
 		text-shadow: none;
 	}
 
-	#aiwp-room-type-selection div button:hover {
+	#aiwp-container button:hover {
 		border-radius: none;
 		box-shadow: none;
 		text-shadow: none;
@@ -47,9 +51,16 @@
 
 	.aiwp-invite-buttons a {
 		display: inline-block;
-		width: 33%;
+		width: 33.33%;
 		text-decoration: none;
 		font-size: 100%;
+	}
+
+	#aiwp-minimize {
+		width: 50px;
+	}
+	#aiwp-invite-email {
+		width: calc( 33.33% - 50px );
 	}
 
 	#aiwp-room-type-selection a {
@@ -64,3 +75,23 @@
 			display: block;
 			text-decoration: none;
 		}
+div[data-position="bottom"].aiwp-room-threshold {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 10000;
+}
+div.aiwp-room-threshold button {
+	padding: .25em !important;
+}
+#aiwp-maximize {
+	display: none;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 10000;
+	width: 64px;
+	height: 64px;
+	cursor: pointer;
+}

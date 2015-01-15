@@ -111,14 +111,29 @@ jQuery(document).ready(function( $ ) {
 		var iframe = document.getElementById('appearin-room');
 		iframe.setAttribute('src', window.location.protocol + "//" + roomNameLite);
 
+		var container = $('#aiwp-container');
+		container.addClass('aiwp-room-threshold');
+		if ( 'bottom' == container.data('position') ) {
+			$('#page').append(container);
+		}
+
 		$('#aiwp-room-type-selection').hide();
-		$('#appearin-room').css('height','700px');
+		$('#appearin-room').css('height',container.data('room-height'));
 		$('#aiwp-invites').show();
-		$('#appearin-room-label').html(roomURL+'?room='+roomNameLite);
 		$('#aiwp-invite-facebook').attr('href','https://facebook.com/sharer.php?u='+roomURL+'?room='+roomNameLite);
 		$('#aiwp-invite-twitter').attr('href','https://twitter.com/intent/tweet?url='+window.location.protocol+'//'+roomURL+'?room='+roomNameLite+'&text=Join%20me%20in%20an%20%23appear_inWP%20video%20chat%20at');
 		$('#aiwp-invite-email').attr('href','mailto:?subject=You\'ve%20been%20invited%20to%20appear.in%20a%20video%20chat&body='+roomURL+'?room='+roomNameLite);
-		$('#appearin-room-label-external').html('<a href="https://'+roomName+'" target="_self">Visit Full Room</a>');
+		
+		if ( 'bottom' != container.data('position') ) {
+			$('#appearin-room-label').html(roomURL+'?room='+roomNameLite);
+			$('#appearin-room-label-external').html('<a href="https://'+roomName+'" target="_self">Visit Full Room</a>');
+		}
+
+		container.css('height',$('#aiwp-invites').outerHeight()+container.data('room-height'));
+
+		if ( 'bottom' == container.data('position') ) {
+			$('#page').css('margin-bottom',$('#aiwp-invites').outerHeight()+container.data('room-height'));
+		}
 
 		window.onbeforeunload = function(){
 		    return 'Active sessions at ' + roomName + ' will be ended.'; 
@@ -133,5 +148,17 @@ jQuery(document).ready(function( $ ) {
 			return '';
 		}
 	}
+
+	$('#aiwp-minimize').click( function() {
+		$('#aiwp-container').slideUp();
+		$('#page').css('margin-bottom',0);
+		$('#aiwp-maximize').show();
+	});
+
+	$('#aiwp-maximize').click( function() {
+		$('#aiwp-container').slideDown();
+		$('#page').css('margin-bottom',$('#aiwp-invites').outerHeight()+$('#aiwp-container').data('room-height'));
+		$('#aiwp-maximize').hide();
+	})
 
 });
