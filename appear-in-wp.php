@@ -247,10 +247,11 @@ class Appear_In_WP {
 
 					// add social invites
 					$html .= '<div class="aiwp-invite-buttons">';
-						$html .= '<a href="#" id="aiwp-invite-facebook" class="aiwp-social" target="_blank"><button>Invite via Facebook</button></a>';
-						$html .= '<a href="#" id="aiwp-invite-twitter" class="aiwp-social" target="_blank"><button>Invite via Twitter</button></a>';
-						$html .= '<a href="#" id="aiwp-invite-email" class="aiwp-social" target="_blank"><button>Invite via Email</button></a>';
-						$html .= '<a href="#" id="aiwp-minimize"><button><i class="fa fa-caret-square-o-down"></i></button></a>';
+						$html .= '<span style="color: #999;font-size: 14px;font-weight: normal;position: relative;display: inline-block;top: -.25em;padding-right: .5em;">Invite</span>';
+						$html .= '<a href="#" id="aiwp-invite-twitter" class="aiwp-social" target="_blank"><i class="fa fa-twitter"></i></a>';
+						$html .= '<a href="#" id="aiwp-invite-facebook" class="aiwp-social" target="_blank"><i class="fa fa-facebook-square"></i></a>';
+						$html .= '<a href="#" id="aiwp-invite-email" class="aiwp-social" target="_blank"><i class="fa fa-envelope"></i></a>';
+						$html .= '<a href="#" id="aiwp-minimize"><i class="fa fa-caret-square-o-down"></i></a>';
 					$html .= '</div>';
 
 				$html .= '</div>';

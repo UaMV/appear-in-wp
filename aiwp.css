@@ -22,13 +22,16 @@
 		width: 100%;
 	}
 
+	#aiwp-container {
+		position: relative;
+	}
+
 	#aiwp-container iframe {
 		border: 0;
 	}
 
 	#aiwp-container button {
 		width: 100%;
-		min-height: 33px;
 		padding: .75em;
 		display: block;
 		margin: 0;
@@ -44,6 +47,18 @@
 		text-shadow: none;
 	}
 
+	#aiwp-invites {
+		position: absolute;
+		right: 50px;
+		width: 270px;
+	}
+
+	#aiwp-invites i {
+		font-size: 20px;
+		line-height: 2.5;
+		background: transparent !important;
+	}
+
 	.aiwp-invite-buttons {
 		text-align: center;
 		font-weight: bold;
@@ -51,16 +66,18 @@
 
 	.aiwp-invite-buttons a {
 		display: inline-block;
-		width: 33.33%;
+		color: #888;
+		width: 50px;
+		height: 50px;
 		text-decoration: none;
 		font-size: 100%;
 	}
+	.aiwp-invite-buttons a:hover {
+		color: white;
+	}
 
 	#aiwp-minimize {
-		width: 50px;
-	}
-	#aiwp-invite-email {
-		width: calc( 33.33% - 50px );
+		margin-left: 25px;
 	}
 
 	#aiwp-room-type-selection a {
@@ -77,7 +94,7 @@
 		}
 div[data-position="bottom"].aiwp-room-threshold {
 	width: 100%;
-	position: fixed;
+	position: fixed !important;
 	bottom: 0;
 	left: 0;
 	z-index: 10000;
@@ -87,7 +104,7 @@ div.aiwp-room-threshold button {
 }
 #aiwp-maximize {
 	display: none;
-	position: fixed;
+	position: fixed !important;
 	bottom: 0;
 	left: 0;
 	z-index: 10000;
