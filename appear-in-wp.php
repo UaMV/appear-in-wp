@@ -202,13 +202,17 @@ class Appear_In_WP {
 		}
 
 		// get position from shortcode, otherwise set to bottom
-		if ( 'inline' != $position ) {
+		if ( 'bottom' == $position ) {
 			$position = 'bottom';
+		} else if ( 'inline' != $position ) {
+			$position = 'left';
 		}
 
 		// set room height
 		if ( 'bottom' == $position ) {
 			$height = 275;
+		} else if ( 'left' == $position ) {
+			$height = '100%';
 		}
 
 		// build room selection wrapper
