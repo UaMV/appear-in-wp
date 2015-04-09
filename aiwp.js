@@ -3,74 +3,33 @@
  */
 jQuery(document).ready(function( $ ) {
 
-	if ( '' != lookToURI( 'room' ) ) {
-		$( window ).on( 'load', function() {
+	// initiate AppearIn SDK
+	var aiwp = new AppearIn();
+
+	// check if webRTC compatible
+	var aiwpCompatible = aiwp.isWebRtcCompatible();
+
+	// get roomname from URI if provided
+	var aiRoom = lookToURI( 'room' );
+
+	if ( aiwpCompatible ) {
+		$('#webrtc-compatability-tester').hide();
+	} else {
+	    $('#appearin-incompatibility').show();
+        $('#aiwp-room-type-selection').hide();
+	}
+   
+    if ( '' != aiRoom ) {
+    	$( window ).on( 'load', function() {
 			window.location.hash = 'appearin-room';
 		});
-	}
 
-	if ( 'https:' === location.protocol ) {
-		// check if roomname is defined in URI
-		var aiRoom = lookToURI( 'room' );
+    	// hide room type selection
+    	$('#aiwp-room-type-selection').hide();
 
-		$('#webrtc-compatability-tester').hide();
-        if ( '' != aiRoom ) {
-
-        	// hide room type selection
-        	$('#aiwp-room-type-selection').hide();
-
-        	// launch room
-        	launchAppearInRoom( aiRoom, 'invite' );
-
-        } // end if
-	} else {
-		API.isAppearinCompatible(function (data) {
-			// check if roomname is define in URI
-			var aiRoom = lookToURI( 'room' );
-
-			// if webRTC not supported show incompatibility message and hide room type selection
-			// otherwise, if room set in URI, set up room
-			// otherwise, do nothing
-			if ( data.isSupported ) {
-				$('#webrtc-compatability-tester').hide();
-			}
-	        if ( !data.isSupported ) {
-	            $('#appearin-incompatibility').show();
-	            $('#aiwp-room-type-selection').hide();
-	        } else if ( '' != aiRoom ) {
-
-	        	// hide room type selection
-	        	$('#aiwp-room-type-selection').hide();
-
-	        	// launch room
-	        	launchAppearInRoom( aiRoom, 'invite' );
-
-	        } // end if
-	    });
-	}
-
-	function randomStringGenerator() {
-        // predefine the alphabet used
-        var alphabet = 'qwertyuiopasdfghjklzxcvbnm1234567890';
-
-        // set the length of the string
-        var stringLength = 30;
-
-        // initialize the room name as an empty string
-        var randomString = '';
-
-        // repeat this 30 times
-        for ( var i=0; i<stringLength; i++) {
-            // get a random character from the alphabet
-            var character = alphabet[Math.round(Math.random()*(alphabet.length-1))];
-
-            // add the character to the roomName
-            randomString = randomString + character;
-        }
-
-        // return the result
-        return randomString;
-    }
+    	// launch room
+    	launchAppearInRoom( aiRoom, 'invite' );
+    } // end if
 
 	// Handle Room Selection
 	$('#aiwp-select-public-room,#aiwp-select-private-room,#aiwp-select-post-room').click( function () {
@@ -85,8 +44,9 @@ jQuery(document).ready(function( $ ) {
 			var roomName = $('#appearin-room').attr('data-room-name');
 			launchAppearInRoom( roomName );
 		} else if ( 'private' == roomType ) {
-			var randomString = 'private-' + randomStringGenerator();
-			launchAppearInRoom( randomString );
+			aiwp.getRandomRoomName().then(function(roomName) {
+				launchAppearInRoom( roomName.replace('/','') );
+			});
 		}
 
 	});

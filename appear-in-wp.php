@@ -162,7 +162,7 @@ class Appear_In_WP {
 		wp_enqueue_script( 'jquery' );
 
 		// enqueue appear-in API library
-		wp_enqueue_script( 'appearin-library', 'http://iswebrtcready.appear.in/apiv2.js', array(), AIWP_VERSION );
+		wp_enqueue_script( 'appearin-library', '//developer.appear.in/scripts/appearin-sdk.0.0.4.min.js', array(), AIWP_VERSION );
 
 		// enqueue script for handling local interaction
 		wp_enqueue_script( 'aiwp', AIWP_DIR_URL . 'aiwp.js', array(), AIWP_VERSION );
