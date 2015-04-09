@@ -47,37 +47,51 @@
 		text-shadow: none;
 	}
 
-	#aiwp-invites {
+	#aiwp-controls {
 		position: absolute;
-		right: 50px;
-		width: 270px;
+		bottom: 0;
+		height: 40px;
+		width: 100%;
+		background: #333;
 	}
 
-	#aiwp-invites i {
+	#aiwp-invites {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+	}
+	#aiwp-toggles {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+
+	#aiwp-invites i,
+	#aiwp-toggles i {
 		font-size: 20px;
-		line-height: 2.5;
+		line-height: 2;
 		background: transparent !important;
 	}
 
-	.aiwp-invite-buttons {
+	.aiwp-invite-buttons,
+	.aiwp-ui-buttons {
 		text-align: center;
 		font-weight: bold;
 	}
 
-	.aiwp-invite-buttons a {
+	.aiwp-invite-buttons a,
+	.aiwp-ui-buttons a {
 		display: inline-block;
-		color: #888;
-		width: 50px;
-		height: 50px;
+		width: 40px;
+		height: 40px;
+		color: #d1d1d1;
 		text-decoration: none;
 		font-size: 100%;
 	}
-	.aiwp-invite-buttons a:hover {
+	.aiwp-invite-buttons a:hover,
+	.aiwp-ui-buttons a:hover {
 		color: white;
-	}
-
-	#aiwp-minimize {
-		margin-left: 25px;
+		background-color: rgba(0,0,0,.25);
 	}
 
 	#aiwp-room-type-selection a {
@@ -100,7 +114,7 @@ div[data-position="bottom"].aiwp-room-threshold {
 	z-index: 10000;
 }
 div[data-position="left"].aiwp-room-threshold {
-	width: 375px;
+	width: 380px;
 	height: 100%;
 	position: fixed !important;
 	bottom: 0;
@@ -108,7 +122,7 @@ div[data-position="left"].aiwp-room-threshold {
 	z-index: 10000;
 }
 .logged-in + div[data-position="left"].aiwp-room-threshold {
-	width: 375px;
+	width: 380px;
 	height: calc( 100% - 32px );
 }
 div.aiwp-room-threshold button {
@@ -123,4 +137,16 @@ div.aiwp-room-threshold button {
 	width: 64px;
 	height: 64px;
 	cursor: pointer;
+}
+#aiwp-move-bottom {
+	/* Safari */
+	-webkit-transform: rotate(-90deg);
+	/* Firefox */
+	-moz-transform: rotate(-90deg);
+	/* IE */
+	-ms-transform: rotate(-90deg);
+	/* Opera */
+	-o-transform: rotate(-90deg);
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }

@@ -35,7 +35,6 @@ jQuery(document).ready(function( $ ) {
 	$('#aiwp-select-public-room,#aiwp-select-private-room,#aiwp-select-post-room').click( function () {
 			
 		var roomType = $(this).data('room-type');
-		var roomInvites = $(this).data('room-invites');
 
 		if ( 'post' == roomType ) {
 			var roomURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
@@ -79,7 +78,7 @@ jQuery(document).ready(function( $ ) {
 		$('body').append($('#aiwp-maximize'));
 
 		$('#aiwp-room-type-selection').hide();
-		$('#aiwp-invites').show();
+		$('#aiwp-controls').show();
 		$('#aiwp-invite-facebook').attr('href','https://facebook.com/sharer.php?u='+roomURL+'?room='+roomNameLite);
 		$('#aiwp-invite-twitter').attr('href','https://twitter.com/intent/tweet?url='+window.location.protocol+'//'+roomURL+'?room='+roomNameLite+'&text=Join%20me%20in%20an%20%23appear_inWP%20video%20chat%20at');
 		$('#aiwp-invite-email').attr('href','mailto:?subject=You\'ve%20been%20invited%20to%20appear.in%20a%20video%20chat&body='+roomURL+'?room='+roomNameLite);
@@ -89,7 +88,7 @@ jQuery(document).ready(function( $ ) {
 		}
 
 		if ( 'left' == container.data('position') ) {
-			$('body').css('margin-left', '375px' );
+			$('body').css('margin-left', '380px' );
 		} else {
 			container.css('height',container.data('room-height'));
 		}
@@ -98,7 +97,7 @@ jQuery(document).ready(function( $ ) {
 			$('body').css('margin-bottom',container.data('room-height'));
 		}
 
-		$('#appearin-room').css('height',container.height());
+		$('#appearin-room').css('height',container.height()-40);
 
 		window.onbeforeunload = function(){
 		    return 'Active sessions at ' + roomName + ' will be ended.'; 
@@ -118,7 +117,7 @@ jQuery(document).ready(function( $ ) {
 		$('#aiwp-container').slideUp();
 		$('body').css('margin-bottom',0);
 		if ( 'left' == $('#aiwp-container').data('position') ) {
-			$('body').animate({marginLeft: '-=375px' }, 600);
+			$('body').animate({marginLeft: '-=380px' }, 600);
 		}
 		$('#aiwp-maximize').delay(400).show(200);
 	});
@@ -127,9 +126,38 @@ jQuery(document).ready(function( $ ) {
 		$('#aiwp-container').slideDown();
 		$('body').css('margin-bottom',$('#aiwp-container').data('room-height'));
 		if ( 'left' == $('#aiwp-container').data('position') ) {
-			$('body').animate({marginLeft: '+=375px' }, 600);
+			$('body').animate({marginLeft: '+=380px' }, 600);
 		}
 		$('#aiwp-maximize').hide();
-	})
+	});
+
+	$('#aiwp-move-bottom').click( function() {
+		$('body').css('margin-bottom',$('#aiwp-container').data('room-height'));
+		if ( 'left' == $('#aiwp-container').data('position') ) {
+			$('body').animate({marginLeft: '-=380px' }, 600);
+			$('#aiwp-container').animate({height: '275px',width:'100%'}, 600);
+			$('#appearin-room').animate({height: '275px'}, 600);
+		}
+		$(this).hide();
+		$('#aiwp-move-left').show();
+		$('#aiwp-container').data('position','bottom');
+	});
+
+	$('#aiwp-move-left').click( function() {
+		$('body').css('margin-bottom','-='+$('#aiwp-container').data('room-height'));
+		if ( 'bottom' == $('#aiwp-container').data('position') ) {
+			$('body').animate({marginLeft: '+=380px' }, 600);
+			if ( $('body').hasClass('logged-in') ) {
+				$('#aiwp-container').animate({height: $(window).height()-32,width:'380px'}, 600);
+				$('#appearin-room').animate({height: $(window).height()-72}, 600);
+			} else {
+				$('#aiwp-container').animate({height: $(window).height(),width:'380px'}, 600);
+				$('#appearin-room').animate({height: $(window).height()-40}, 600);
+			}
+		}
+		$(this).hide();
+		$('#aiwp-move-bottom').show();
+		$('#aiwp-container').data('position','left');
+	});
 
 });

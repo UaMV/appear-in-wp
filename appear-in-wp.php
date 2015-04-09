@@ -29,6 +29,7 @@
 define( 'AIWP_VERSION', '2.3' );
 define( 'AIWP_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AIWP_DIR_URL', plugin_dir_url( __FILE__ ) );
+! defined( 'AIWP_SHOW_TOGGLE' ) ? define( 'AIWP_SHOW_TOGGLE', TRUE ) : FALSE;
 ! defined( 'AIWP_SHOW_INVITE' ) ? define( 'AIWP_SHOW_INVITE', TRUE ) : FALSE;
 
 /**
@@ -201,18 +202,16 @@ class Appear_In_WP {
 			$custom_room_name = get_option( 'aiwp_public_room' );
 		}
 
-		// get position from shortcode, otherwise set to bottom
+		// get position from shortcode, otherwise set to left
 		if ( 'bottom' == $position ) {
 			$position = 'bottom';
-		} else if ( 'inline' != $position ) {
+		} elseif ( 'inline' != $position ) {
 			$position = 'left';
 		}
 
 		// set room height
 		if ( 'bottom' == $position ) {
 			$height = 275;
-		} else if ( 'left' == $position ) {
-			$height = '100%';
 		}
 
 		// build room selection wrapper
@@ -245,32 +244,49 @@ class Appear_In_WP {
 
 			$html .= '</div>';
 
-			if ( AIWP_SHOW_INVITE ) {
-
-				$html .= '<div id="aiwp-invites" style="display:none;">';
-
-					// add social invites
-					$html .= '<div class="aiwp-invite-buttons">';
-						$html .= '<span style="color: #999;font-size: 14px;font-weight: normal;position: relative;display: inline-block;top: -.25em;padding-right: .5em;">Invite</span>';
-						$html .= '<a href="#" id="aiwp-invite-twitter" class="aiwp-social" target="_blank"><i class="fa fa-twitter"></i></a>';
-						$html .= '<a href="#" id="aiwp-invite-facebook" class="aiwp-social" target="_blank"><i class="fa fa-facebook-square"></i></a>';
-						$html .= '<a href="#" id="aiwp-invite-email" class="aiwp-social" target="_blank"><i class="fa fa-envelope"></i></a>';
-						$html .= '<a href="#" id="aiwp-minimize"><i class="fa fa-caret-square-o-down"></i></a>';
-					$html .= '</div>';
-
-				$html .= '</div>';
-
-			}
-
 			// build compatibility test result
 			$html .= '<span id="appearin-incompatibility" style="display:none;">' . apply_filters( 'aiwp_unsupported_browser_message', 'It appears your browser is not capable of displaying this content. Try connecting with Chrome, Firefox, or Opera.' ) . '</span>';
 
 			// include appearin iframe populated by API
 			$html .= '<iframe id="appearin-room" data-room-name="' . $custom_room_name . '"></iframe>';	
 
-			$html .= '<div id="appearin-room-labels">';
-				$html .= '<div id="appearin-room-label-external"></div>';
-				$html .= '<div id="appearin-room-label"></div>';
+			$html .= '<div id="aiwp-controls" style="display:none;">';
+
+				if ( AIWP_SHOW_TOGGLE ) {
+
+					$html .= '<div id="aiwp-toggles">';
+
+						// add ui buttons
+						$html .= '<div class="aiwp-ui-buttons">';
+							$html .= '<a href="#" id="aiwp-minimize"><i class="fa fa-arrow-down"></i></a>';
+							$html .= '<a href="#" id="aiwp-move-bottom" ';
+								$html .= 'left' == $position ? '' : 'style="display:none;"';
+								$html .= '><i class="fa fa-columns"></i></a>';
+							$html .= '<a href="#" id="aiwp-move-left" ';
+								$html .= 'bottom' == $position ? '' : 'style="display:none;"';
+								$html .= '><i class="fa fa-columns"></i></a>';
+						$html .= '</div>';
+
+					$html .= '</div>';
+
+				}
+
+				if ( AIWP_SHOW_INVITE ) {
+
+					$html .= '<div id="aiwp-invites">';
+
+						// add social invites
+						$html .= '<div class="aiwp-invite-buttons">';
+							$html .= '<span style="width:75px;font-family:Helvetica;color: #d1d1d1;font-size: 14px;font-weight: normal;position: relative;display: inline-block;top: -.25em;">Invite via</span>';
+							$html .= '<a href="#" id="aiwp-invite-twitter" class="aiwp-social" target="_blank"><i class="fa fa-twitter"></i></a>';
+							$html .= '<a href="#" id="aiwp-invite-facebook" class="aiwp-social" target="_blank"><i class="fa fa-facebook-square"></i></a>';
+							$html .= '<a href="#" id="aiwp-invite-email" class="aiwp-social" target="_blank"><i class="fa fa-envelope"></i></a>';
+						$html .= '</div>';
+
+					$html .= '</div>';
+
+				}
+
 			$html .= '</div>';
 
 		$html .= '</div>';
