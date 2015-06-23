@@ -188,6 +188,7 @@ class Appear_In_WP {
 			'type' => 'public',
 			'position' => '',
 			'height' => '700',
+			'source' => 'shortcode',
 		), $atts ) );
 
 		// push the shortcode defined rooom types to an array
@@ -218,7 +219,7 @@ class Appear_In_WP {
 		// add styling for iconset
 		$text_color = $this->is_color_light( $this->options['color'] ) ? 'black' : 'white';
 
-		$html = '<div id="aiwp-container" data-position="' . $position . '" data-room-height="' . $height . '">';
+		$html = '<div id="aiwp-container" data-source="' . $source . '" data-position="' . $position . '" data-room-height="' . $height . '">';
 			$html .= '<style type="text/css">
 						#aiwp-container button {
 							background: ' . $this->options['color'] . ';
@@ -357,6 +358,7 @@ function aiwp_include( $args ) {
 	$aiwp_defaults = array(
 		'room' => '',
 		'type' => 'public',
+		'source' => 'include',
 		);
 
 	$args = wp_parse_args( $args, $aiwp_defaults );
