@@ -91,6 +91,7 @@ Silence is golden.
 == Screenshots ==
 
 1. appear.in WordPress Settings
+2. Active appear.in Embedded Room
 
 == Changelog ==
 
