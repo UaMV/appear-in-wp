@@ -1,24 +1,24 @@
 <?php
 /**
  * Plugin Name: appear.in WP
- * Plugin URI: http://vandercar.net/wp/appear-in-wp
+ * Plugin URI: https://typewheel.xyz/appear-in-wp
  * Description: Adds appear.in rooms to your site via shortcode
- * Version: 2.6
+ * Version: 2.7
  * Author: UaMV
  * Author URI: http://vandercar.net
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
- * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume 
+ * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume
  * that you can use any other version of the GPL.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package appear.in WP
- * @version 2.6
+ * @version 2.7
  * @author UaMV
  * @copyright Copyright (c) 2013, UaMV
- * @link http://vandercar.net/wp/appear-in-wp
+ * @link https://typewheel.xyz/appear-in-wp
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -26,7 +26,7 @@
  * Define constants.
  */
 
-define( 'AIWP_VERSION', '2.6' );
+define( 'AIWP_VERSION', '2.7' );
 define( 'AIWP_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AIWP_DIR_URL', plugin_dir_url( __FILE__ ) );
 ! defined( 'AIWP_SHOW_TOGGLE' ) ? define( 'AIWP_SHOW_TOGGLE', TRUE ) : FALSE;
@@ -148,7 +148,7 @@ class Appear_In_WP {
 
 		// get post object
 		global $post;
-		
+
 		// get post object
 		$post_obj = get_post( $post->ID );
 
@@ -238,7 +238,7 @@ class Appear_In_WP {
 						#aiwp-container button {
 							background: ' . $this->options['color'] . ';
 							color: ' . $text_color . ';
-						}			
+						}
 						#aiwp-container button:hover {
 							background: ' . $this->hex_color_mod( $this->options['color'], -16 ) . ';
 						}
@@ -249,7 +249,7 @@ class Appear_In_WP {
 				foreach ( $aiwp_room_types as $room_type ) {
 
 					$room_button_text = isset( $atts[ $room_type . '_room_button' ] ) ? $atts[ $room_type . '_room_button' ] : ucfirst( $room_type ) . ' Room';
-					
+
 					if ( $this->detect->isiOS() ){
 						// display room buttons
 						$html .= '<a href="#" id="aiwp-' . $room_type . '" style="display:inline-block;width:' . ( 100 / count( $aiwp_room_types ) ) . '%">';
@@ -261,7 +261,7 @@ class Appear_In_WP {
 							$html .= '<button id="aiwp-select-' . $room_type . '-room" data-room-type="' . $room_type . '">' . $room_button_text . '</button>';
 						$html .= '</div>';
 					}
-				
+
 				}
 
 			$html .= '</div>';
@@ -270,7 +270,7 @@ class Appear_In_WP {
 			$html .= '<span id="appearin-incompatibility" style="display:none;">' . apply_filters( 'aiwp_unsupported_browser_message', 'It appears your browser is not capable of displaying this content. Try connecting with Chrome, Firefox, or Opera.' ) . '</span>';
 
 			// include appearin iframe populated by API
-			$html .= '<iframe id="appearin-room" data-room-name="' . $custom_room_name . '"></iframe>';	
+			$html .= '<iframe id="appearin-room" data-room-name="' . $custom_room_name . '"></iframe>';
 
 			$html .= '<div id="aiwp-controls" style="display:none;">';
 
@@ -324,26 +324,26 @@ class Appear_In_WP {
 	 *
 	 * $diff should be negative to go darker, positive to go lighter and
 	 * is subtracted from the decimal (0-255) value of the color
-	 * 
+	 *
 	 * @param string $hex color to be modified
 	 * @param string $diff amount to change the color
 	 * @return string hex color
 	 */
 	public function hex_color_mod($hex, $diff) {
 		$rgb = str_split(trim($hex, '# '), 2);
-	 
+
 		foreach ($rgb as &$hex) {
 			$dec = hexdec($hex);
 			if ($diff >= 0) {
 				$dec += $diff;
 			}
 			else {
-				$dec -= abs($diff);			
+				$dec -= abs($diff);
 			}
 			$dec = max(0, min(255, $dec));
 			$hex = str_pad(dechex($dec), 2, '0', STR_PAD_LEFT);
 		}
-	 
+
 		return '#'.implode($rgb);
 	}
 
@@ -357,14 +357,14 @@ class Appear_In_WP {
 
         // Get our color
         $color = ($color) ? $color : $this->_hex;
-        
+
         // Calculate straight from rbg
         $r = hexdec($color[0].$color[1]);
         $g = hexdec($color[2].$color[3]);
         $b = hexdec($color[4].$color[5]);
-        
+
         return (( $r*299 + $g*587 + $b*114 )/1000 > 130);
-        
+
     }
 
 } // end class

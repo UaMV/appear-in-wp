@@ -1,11 +1,11 @@
 === appear.in WP ===
 
 Contributors: UaMV
-Donate link: http://vandercar.net/wp
+Donate link: http://paypal.me/uamv
 Tags: appear, in, video, chat, conference, webrtc, teleconference
 Requires at least: 3.1
-Tested up to: 4.2
-Stable tag: 2.6
+Tested up to: 4.6
+Stable tag: 2.7
 License: GPLv2 or later
 
 Adds appear.in rooms to your site via shortcode
@@ -14,9 +14,11 @@ Adds appear.in rooms to your site via shortcode
 
 Harness the power of [appear.in](http://appear.in "appear.in") by embedding secure peer-to-peer video chat rooms on a self-hosted WordPress site via the [appear_in] shortcode.
 
+**In order for this plugin to operate properly within a Chrome browser, the shortcode must be embedded on a webpage served with the HTTPS protocol.**
+
 = Shortcode =
 
-> **[appear_in]**
+`[appear_in]`
 
 = Shortcode Attributes =
 > **room="_custom-public-room-name_"**<br />
@@ -46,12 +48,6 @@ Button for toggling room visibility.
 Button for toggling room position.
 Buttons for inviting others via Twitter, Facebook, and email.
 
-= Documentation =
-
-Documentation and implementation can be viewed [here](http://vandercar.net/wp/appear-in-wp).
-
-Learn more about [appear.in](http://appear.in "appear.in") - a product of [Telenor Digital AS](http://www.telenor.com/ "Telenor Digital") built with WebRTC technologies.
-
 = Functions =
 
 The following function can be used to include rooms:
@@ -79,10 +75,17 @@ aiwp_room_button`
 `AIWP_SHOW_TOGGLE
 AIWP_SHOW_INVITE`
 
+= Documentation =
+
+Documentation and implementation can be viewed [here](https://typwheel.xyz/appear-in-wp).
+
+Learn more about [appear.in](http://appear.in "appear.in") - a product of [Telenor Digital AS](http://www.telenor.com/ "Telenor Digital") built with WebRTC technologies.
+
 == Installation ==
 
 1. Upload the `appear-in-wp` directory to `/wp-content/plugins/`
 1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Ensure pages are served via HTTPS.
 
 == Frequently Asked Questions ==
 
@@ -94,6 +97,9 @@ Silence is golden.
 2. Active appear.in Embedded Room
 
 == Changelog ==
+
+= 2.7 =
+* Bump compatibility to WP 4.6
 
 = 2.6 =
 * Redirects to app on iOS
@@ -170,6 +176,9 @@ Silence is golden.
 
 == Upgrade Notice ==
 
+= 2.7 =
+* Bumps compatibility to WP 4.6
+
 = 2.6 =
 * This update allows iOS users to click through to app!
 
@@ -177,28 +186,28 @@ Silence is golden.
 * Fix for hidden controls when toggling position
 
 = 2.4 =
-Note that the new default position of rooms is set to be fixed left. This has been successfully tested with some themes. Some themes will have issues requiring custom CSS. Adds toggling of position and provides cleaner UI.
+* Note that the new default position of rooms is set to be fixed left. This has been successfully tested with some themes. Some themes will have issues requiring custom CSS. Adds toggling of position and provides cleaner UI.
 
 = 2.3 =
-Note that rooms will be repositioned when active unless position="inline" is explicitly included in shortcode + Other visibility & display changes
+* Note that rooms will be repositioned when active unless position="inline" is explicitly included in shortcode + Other visibility & display changes
 
 = 2.2 =
-Fixes & features
+* Fixes & features
 
 = 2.0 =
-Be sure to set your button color with the added option.
+* Be sure to set your button color with the added option.
 
 = 1.7 =
-Adds prevention against accidentally leaving an active session.
+* Adds prevention against accidentally leaving an active session.
 
 = 1.6 =
-This update fixes various PHP notices
+* This update fixes various PHP notices
 
 = 1.5 =
-Added display of local invitation URL + Updated side notice class
+* Added display of local invitation URL + Updated side notice class
 
 = 1.4 =
-Modified & Refined filters + Added shortcode parameters for button text
+* Modified & Refined filters + Added shortcode parameters for button text
 
 = 1.3 =
 * Refined filters
