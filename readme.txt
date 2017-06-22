@@ -1,12 +1,14 @@
 === appear.in WP ===
 
-Contributors: UaMV
-Donate link: http://paypal.me/uamv
+Contributors: uamv
+Donate link: http://typewheel.xyz/give
 Tags: appear, in, video, chat, conference, webrtc, teleconference
 Requires at least: 3.1
-Tested up to: 4.6
-Stable tag: 2.7
+Tested up to: 4.8
+Stable tag: 2.8
 License: GPLv2 or later
+
+> Please note: As of June 30, 2017, the appear.in embed & developer SDK is being deprecated. Thus, the appear.in WP plugin can no longer serve to embed rooms. <a href="https://wordpress.org/support/topic/appear-in-embed-developer-sdk-deprecation/">Read More</a>. All existing room buttons will redirect users to the full room hosted at <a href="https://appear.in">.
 
 Adds appear.in rooms to your site via shortcode
 
@@ -21,13 +23,13 @@ Harness the power of [appear.in](http://appear.in "appear.in") by embedding secu
 `[appear_in]`
 
 = Shortcode Attributes =
-> **room="_custom-public-room-name_"**<br />
-> **type="_public,private,post_"** (default: public)<br />
-> **public_room_button=""** (default: Public Room)<br />
-> **private_room_button=""** (default: Private Room)<br />
-> **post_room_button=""** (default: Post Room)<br />
-> **position="_left,bottom,inline_"** (default: left)<br />
-> **height="_int_"**
+`  room="_custom-public-room-name_"
+` type="_public,private,post_" (default: public)
+` public_room_button="" (default: Public Room)
+` private_room_button="" (default: Private Room)
+` post_room_button="" (default: Post Room)
+` position="_left,bottom,inline_" (default: left)
+` height="_int_"
 
 Set a custom public room name, specify which room buttons are shown on a page, change the button text, determine where rooms will be displayed, and set height of inline rooms.
 
@@ -97,6 +99,9 @@ Silence is golden.
 2. Active appear.in Embedded Room
 
 == Changelog ==
+
+= 2.8 =
+* Please note: As of June 30, 2017, the appear.in embed & developer SDK is being deprecated. Thus, the appear.in WP plugin can no longer serve to embed rooms.
 
 = 2.7 =
 * Bump compatibility to WP 4.6
@@ -175,6 +180,9 @@ Silence is golden.
 * Initial Release
 
 == Upgrade Notice ==
+
+= 2.8 =
+* Please note: As of June 30, 2017, the appear.in embed & developer SDK is being deprecated. Thus, the appear.in WP plugin can no longer serve to embed rooms.
 
 = 2.7 =
 * Bumps compatibility to WP 4.6

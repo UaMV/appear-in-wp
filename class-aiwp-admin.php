@@ -131,6 +131,18 @@ class Appear_In_WP_Admin {
 
 			update_option( 'aiwp_activated', TRUE );
 
+		} else if ( 'plugins' == get_current_screen()->id || 'options-media' == get_current_screen()->id ) {
+
+			// Show the notice
+			$html = '<div class="error">';
+				$html .= '<a href="http://appear.in"><img src="' . AIWP_DIR_URL . 'appearin-logo.png" style="float: left; width: 2em; height: 2em; margin-right: 0.4em; margin-top: 0.4em" /></a>';
+				$html .= '<p style="display: inline-block">';
+					$html .= __( "<strong>Note:</strong> The appear.in embed & developer SDK is being deprecated. Thus, the appear.in WP plugin can no longer serve to embed rooms. <a href=\"https://wordpress.org/support/topic/appear-in-embed-developer-sdk-deprecation/\">Read More</a>", 'aiwp-locale' );
+				$html .= '</p>';
+			$html .= '</div><!-- /.updated -->';
+
+			echo $html;
+
 		} // end if
 
 	} // end display_plugin_activation_message
@@ -175,7 +187,7 @@ class Appear_In_WP_Admin {
 				'trigger' => TRUE,
 				'time' => time() - 5,
 				'dismiss' => 'none',
-				'content' => '<a href="http://wordpress.org/plugins/appear-in-wp">appear.in WP</a> plugin developed by <a href="http://vandercar.net/wp">UaMV</a>.',
+				'content' => '<a href="http://wordpress.org/plugins/appear-in-wp">appear.in WP</a> plugin developed by <a href="http://typewheel.xyz/">Joshua Vandercar</a>.',
 				'style' => array( 'height' => '72px', 'color' => '#85ae9b', 'icon' => 'f348' ),
 				'location' => array( 'options-media.php' ),
 				),
@@ -192,7 +204,7 @@ class Appear_In_WP_Admin {
 
 		// remove the old notices
 		method_exists( 'WP_Side_Notice', 'remove' ) ? $wpsn->remove() : FALSE;
-		
+
 		// Add each notice
 		foreach ( $aiwp_notices as $notice => $args ) {
 			$wpsn->add( $args );
@@ -200,7 +212,7 @@ class Appear_In_WP_Admin {
 
 		// Update the aiwp database version
 		update_option( 'aiwp_db_version', AIWP_VERSION );
-		
+
 	} // end add_wpsn_notices
 
 	/**
@@ -336,42 +348,42 @@ class Appear_In_WP_Admin {
 
 	} // end display_settings
 
-	public function validate_options( $fields ) { 
-		 
+	public function validate_options( $fields ) {
+
 		$valid_fields = $fields;
-		 
+
 		// Validate Background Color
 		$color = trim( $fields['color'] );
 		$color = strip_tags( stripslashes( $color ) );
-		 
+
 		// Check if is a valid hex color
 		if( FALSE === $this->is_color( $color ) ) {
-		 
+
 		    // Set the error message
 		    add_settings_error( 'aiwp_settings', 'aiwp_color_error', 'Insert a valid color for appear.in button', 'error' ); // $setting, $code, $message, $type
-		     
+
 		    // Get the previous valid value
 		    $valid_fields['color'] = $this->options['color'];
-		 
+
 		} else {
-		 
-		    $valid_fields['color'] = $color;  
-		 
+
+		    $valid_fields['color'] = $color;
+
 		}
-		 
+
 		return apply_filters( 'validate_options', $valid_fields, $fields);
-	
+
 	}
 
 	/**
 	* Function that will check if value is a valid HEX color.
 	*/
-	public function is_color( $value ) { 
-		 
-		if ( preg_match( '/^#[a-f0-9]{6}$/i', $value ) ) { // if user insert a HEX color with #     
+	public function is_color( $value ) {
+
+		if ( preg_match( '/^#[a-f0-9]{6}$/i', $value ) ) { // if user insert a HEX color with #
 		    return true;
 		}
-		 
+
 		return false;
 	}
 
