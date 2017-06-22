@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: appear.in WP
- * Plugin URI: https://typewheel.xyz/appear-in-wp
+ * Plugin URI: https://typewheel.xyz/wp
  * Description: Adds appear.in rooms to your site via shortcode
- * Version: 2.7
+ * Version: 2.8
  * Author: UaMV
  * Author URI: http://vandercar.net
  *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
+ * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
  * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume
  * that you can use any other version of the GPL.
  *
@@ -15,7 +15,7 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package appear.in WP
- * @version 2.7
+ * @version 2.8
  * @author UaMV
  * @copyright Copyright (c) 2013, UaMV
  * @link https://typewheel.xyz/appear-in-wp
@@ -26,18 +26,15 @@
  * Define constants.
  */
 
-define( 'AIWP_VERSION', '2.7' );
+define( 'AIWP_VERSION', '2.8' );
 define( 'AIWP_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AIWP_DIR_URL', plugin_dir_url( __FILE__ ) );
-! defined( 'AIWP_SHOW_TOGGLE' ) ? define( 'AIWP_SHOW_TOGGLE', TRUE ) : FALSE;
-! defined( 'AIWP_SHOW_INVITE' ) ? define( 'AIWP_SHOW_INVITE', TRUE ) : FALSE;
 
 /**
  * Include files.
  */
 
 require_once AIWP_DIR_PATH . 'class-aiwp-admin.php';
-require_once AIWP_DIR_PATH . 'mobile-detect.php';
 is_admin() ? require_once AIWP_DIR_PATH . 'wp-side-notice/class-wp-side-notice.php' : FALSE;
 
 /**
@@ -100,9 +97,6 @@ class Appear_In_WP {
 
 		// retrieve custom plugin settings
 		$this->options = get_option( 'aiwp_settings', array() );
-
-		// get user device info
-		$this->detect = new Mobile_Detect;
 
 		// if admin area, get instance of admin class
 		if ( is_admin() ) { Appear_In_WP_Admin::get_instance(); }
@@ -176,13 +170,13 @@ class Appear_In_WP {
 		wp_enqueue_script( 'jquery' );
 
 		// enqueue appear-in API library
-		wp_enqueue_script( 'appearin-library', '//developer.appear.in/scripts/appearin-sdk.0.0.4.min.js', array(), AIWP_VERSION );
+		// wp_enqueue_script( 'appearin-library', '//developer.appear.in/scripts/appearin-sdk.0.0.4.min.js', array(), AIWP_VERSION );
 
 		// enqueue script for handling local interaction
 		wp_enqueue_script( 'aiwp', AIWP_DIR_URL . 'aiwp.js', array(), AIWP_VERSION );
 
 		// enqueue font-awesome CDN
-		wp_enqueue_style( 'aiwp-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css', array(), '4.0.3' );
+		// wp_enqueue_style( 'aiwp-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css', array(), '4.0.3' );
 
 	} // end add_stylesheets_and_javascript
 
@@ -232,8 +226,7 @@ class Appear_In_WP {
 		// add styling for iconset
 		$text_color = $this->is_color_light( $this->options['color'] ) ? 'black' : 'white';
 
-		$html = '<div id="aiwp-container" data-source="' . $source . '" data-position="' . $position . '" data-room-height="' . $height . '"';
-			$html .= $this->detect->isiOS() ? ' class="aiwp-ios">' : '>';
+		$html = '<div id="aiwp-container" data-source="' . $source . '" data-position="' . $position . '" data-room-height="' . $height . '">';
 			$html .= '<style type="text/css">
 						#aiwp-container button {
 							background: ' . $this->options['color'] . ';
@@ -250,70 +243,17 @@ class Appear_In_WP {
 
 					$room_button_text = isset( $atts[ $room_type . '_room_button' ] ) ? $atts[ $room_type . '_room_button' ] : ucfirst( $room_type ) . ' Room';
 
-					if ( $this->detect->isiOS() ){
-						// display room buttons
-						$html .= '<a href="#" id="aiwp-' . $room_type . '" style="display:inline-block;width:' . ( 100 / count( $aiwp_room_types ) ) . '%">';
-							$html .= '<button id="aiwp-select-' . $room_type . '-room" data-room-type="' . $room_type . '">' . $room_button_text . '</button>';
-						$html .= '</a>';
-					} else {
-						// display room buttons
-						$html .= '<div id="aiwp-' . $room_type . '" style="width:' . ( 100 / count( $aiwp_room_types ) ) . '%">';
-							$html .= '<button id="aiwp-select-' . $room_type . '-room" data-room-type="' . $room_type . '">' . $room_button_text . '</button>';
-						$html .= '</div>';
-					}
+					// display room buttons
+					$html .= '<a href="https://appear.in/' . $custom_room_name . '/" id="aiwp-' . $room_type . '" style="display:inline-block;width:' . ( 100 / count( $aiwp_room_types ) ) . '%" target="_blank">';
+						$html .= '<button id="aiwp-select-' . $room_type . '-room" data-room-type="' . $room_type . '">' . $room_button_text . '</button>';
+					$html .= '</a>';
 
 				}
 
 			$html .= '</div>';
 
-			// build compatibility test result
-			$html .= '<span id="appearin-incompatibility" style="display:none;">' . apply_filters( 'aiwp_unsupported_browser_message', 'It appears your browser is not capable of displaying this content. Try connecting with Chrome, Firefox, or Opera.' ) . '</span>';
-
-			// include appearin iframe populated by API
-			$html .= '<iframe id="appearin-room" data-room-name="' . $custom_room_name . '"></iframe>';
-
-			$html .= '<div id="aiwp-controls" style="display:none;">';
-
-				if ( AIWP_SHOW_TOGGLE ) {
-
-					$html .= '<div id="aiwp-toggles">';
-
-						// add ui buttons
-						$html .= '<div class="aiwp-ui-buttons">';
-							$html .= '<a href="#" id="aiwp-minimize"><i class="fa fa-arrow-down"></i></a>';
-							$html .= '<a href="#" id="aiwp-move-bottom" ';
-								$html .= 'left' == $position ? '' : 'style="display:none;"';
-								$html .= '><i class="fa fa-columns"></i></a>';
-							$html .= '<a href="#" id="aiwp-move-left" ';
-								$html .= 'bottom' == $position ? '' : 'style="display:none;"';
-								$html .= '><i class="fa fa-columns"></i></a>';
-						$html .= '</div>';
-
-					$html .= '</div>';
-
-				}
-
-				if ( AIWP_SHOW_INVITE ) {
-
-					$html .= '<div id="aiwp-invites">';
-
-						// add social invites
-						$html .= '<div class="aiwp-invite-buttons">';
-							$html .= '<span style="width:75px;font-family:Helvetica;color: #d1d1d1;font-size: 14px;font-weight: normal;position: relative;display: inline-block;top: -.25em;">Invite via</span>';
-							$html .= '<a href="#" id="aiwp-invite-twitter" class="aiwp-social" target="_blank"><i class="fa fa-twitter"></i></a>';
-							$html .= '<a href="#" id="aiwp-invite-facebook" class="aiwp-social" target="_blank"><i class="fa fa-facebook-square"></i></a>';
-							$html .= '<a href="#" id="aiwp-invite-email" class="aiwp-social" target="_blank"><i class="fa fa-envelope"></i></a>';
-						$html .= '</div>';
-
-					$html .= '</div>';
-
-				}
-
-			$html .= '</div>';
 
 		$html .= '</div>';
-
-		$html .= '<img id="aiwp-maximize" src="' . AIWP_DIR_URL . 'appearin-logo-transparent.png" />';
 
 		return $html;
 
